@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import "./Feed.css"
 import CreateIcon from '@material-ui/icons/Create';
 import InputOptions from './InputOptions';
@@ -17,7 +17,7 @@ const Feed = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => { 
-        // onSnapShot gives a realtime snapshot of "posts" in our database
+        // onSnapShot gives a realtime snapshot of "posts" from our database
         db.collection("posts").onSnapshot((snapshot)=>{
             setPosts(snapshot.docs.map((doc)=>{
                 return ({
