@@ -11,9 +11,11 @@ import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
 
 // database
 import {db} from "./firebase"
+import firebase from "firebase"
 
 const Feed = () => {
 
+    const [input, setInput] = useState("")
     const [posts, setPosts] = useState([])
 
     useEffect(() => { 
@@ -31,6 +33,15 @@ const Feed = () => {
     const sendPost = (e) => {
         e.preventDefault() //stops from refreshing
         // sending data to the firestore
+        //add a collection names posts to db
+        db.collection("posts").add({
+            name : "Uttam Marandi",
+            description: "this is a test",
+            message : input,
+            photoUrl : "",
+            timestamp : firebase.firestore.FieldValue.serverTimestamp()
+            // gets the timestamp of the server, so that it does not effect the time based on timezones
+        })
     }
 
 
@@ -40,7 +51,7 @@ const Feed = () => {
                 <div className="feed__input">
                     <CreateIcon/>
                     <form>
-                        <input type="text" />
+                        <input type="text" value = {input} onChange = {e=> setInput(e.target.value)} />
                         <button type = "submit" onClick = {sendPost}>Send</button>
                     </form>
                 </div>
@@ -54,8 +65,16 @@ const Feed = () => {
             </div>
 
             {/* Posts */}
-            {posts.map((post)=>{
-                <Post/>
+            {/* Here posts is same as the one we received from db */}
+
+            {posts.map(({id, data : {name , description , message , photoUrl} })=>{
+                <Post
+                key = {id}
+                name = {name}
+                description = {description}
+                message = {message}
+                photoUrl = {photoUrl}
+                />
             })}
             <Post  name= "Uttam Marandi" description = "This is a test" message="WoW THis worked" />
         </div>
