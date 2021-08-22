@@ -23,3 +23,7 @@
   overflow-wrap: anywhere;
   /* Saame as word wrap */
 }
+.post__buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
