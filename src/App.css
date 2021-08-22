@@ -3,3 +3,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+.app {
+  background-color: #f3f2ef;
+
+  /* flex-direction: column;
+  align-items: flex-start; */
+}
+
+.app__body {
+  display: flex;
+  display: grid;
+  grid-template-columns: 3fr 6fr 3fr;
+  width: 70vw;
+  margin: 0 auto;
+}

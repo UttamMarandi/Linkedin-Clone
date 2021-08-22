@@ -1,10 +1,17 @@
+import { Avatar } from '@material-ui/core'
 import React from 'react'
 import "./HeaderOption.css"
 
-const HeaderOption = ({Icon,title}) => {
+const HeaderOption = ({avatar , Icon,title}) => {
     return (
         <div className="headerOption">
-            Test
+            {Icon && <Icon className="headerOption__icon"/>}
+             {/* Render the icon only if Icon comopnent i.e image is passed */}
+            {avatar && <Avatar className = "headerOption__icon" src ={avatar}/>}
+            {/* Render Avatar component only if avatar is passed */}
+            <h3 className="headerOption__title">{title}</h3>
+           
+            
         </div>
     )
 }

@@ -1,5 +1,14 @@
 .header {
   display: flex;
+  justify-content: space-evenly;
+  /* justify-content: space-evenly gives equal spaces before after and between child elements */
+  border-bottom: 0.1px solid lightgrey;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .header__left {
@@ -21,9 +30,13 @@
 .header__search svg {
   height: 22px;
   color: gray;
+  margin-left: 8px;
 }
 .header__search input {
   outline: none;
   border: none;
   background-color: #eef3f8;
+}
+.header__right {
+  display: flex;
 }
