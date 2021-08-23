@@ -9,9 +9,10 @@ import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 
-const Post = ({name, description, message, photoUrl}) => {
+const Post = ({id,name, description, message, photoUrl}) => {
+    console.log("name in Post", name);
     return (
-        <div className="post">
+        <div className="post" key = {id}>
             <div className="post__header">
                 <Avatar />
                 <div className="post__info">

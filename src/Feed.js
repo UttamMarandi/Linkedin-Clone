@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import "./Feed.css"
 import CreateIcon from '@material-ui/icons/Create';
 import InputOptions from './InputOptions';
-import Post from "./Post"
+
 // Icons
 import PhotoIcon from '@material-ui/icons/Photo';
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
@@ -10,8 +10,10 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
 
 // database
+
 import {db} from "./firebase"
 import firebase from "firebase"
+import Post from "./Post"
 
 const Feed = () => {
 
@@ -24,12 +26,12 @@ const Feed = () => {
             setPosts(snapshot.docs.map((doc)=>{
                 return ({
                     id : doc.id,
-                    data: doc.data
+                    data: doc.data()
                 })
             }))
         })
     }, [])
-    
+    console.log(posts);
     const sendPost = (e) => {
         e.preventDefault() //stops from refreshing
         // sending data to the firestore
@@ -68,15 +70,17 @@ const Feed = () => {
             {/* Here posts is same as the one we received from db */}
 
             {posts.map(({id, data : {name , description , message , photoUrl} })=>{
-                <Post
+                return ( <Post
                 key = {id}
                 name = {name}
                 description = {description}
                 message = {message}
                 photoUrl = {photoUrl}
-                />
-            })}
-            <Post  name= "Uttam Marandi" description = "This is a test" message="WoW THis worked" />
+                />)
+            }
+                // Bug fix : earlier I was using curly braces but not using return statement. If using curly barces for arrow function body than you have to explicitly mention the return
+            )}
+           
         </div>
         
         
