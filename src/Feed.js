@@ -22,7 +22,8 @@ const Feed = () => {
 
     useEffect(() => { 
         // onSnapShot gives a realtime snapshot of "posts" from our database
-        db.collection("posts").onSnapshot((snapshot)=>{
+        //firebase fuction orderBy("timestamp","desc") , orders the render order in feed
+        db.collection("posts").orderBy("timestamp","desc").onSnapshot((snapshot)=>{
             setPosts(snapshot.docs.map((doc)=>{
                 return ({
                     id : doc.id,
@@ -31,7 +32,7 @@ const Feed = () => {
             }))
         })
     }, [])
-    console.log(posts);
+    
     const sendPost = (e) => {
         e.preventDefault() //stops from refreshing
         // sending data to the firestore

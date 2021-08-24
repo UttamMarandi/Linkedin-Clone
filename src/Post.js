@@ -10,7 +10,7 @@ import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 
 const Post = ({id,name, description, message, photoUrl}) => {
-    console.log("name in Post", name);
+    
     return (
         <div className="post" key = {id}>
             <div className="post__header">
