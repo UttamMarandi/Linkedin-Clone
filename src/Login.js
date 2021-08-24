@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { auth } from './firebase'
 import { login } from './features/userSlice'
+
 import "./Login.css"
 
 const Login = () => {
@@ -12,38 +13,39 @@ const Login = () => {
     const [profilePic, setProfilePic] = useState("")
     const dispatch = useDispatch()
 
-    const register =()=> {
+    const loginToApp =(e)=> {
+        e.preventDefault()
+        console.log(name , email);
+        
+    }
+
+    const register = ()=> {
         if(!name) {
             return alert ("Please enter full name")
         }
         auth.createUserWithEmailAndPassword(email,password)
-        .then ((userAuth)=> {
-            userAuth.user.updateProfile({
+       .then((userAuth) => {
+           userAuth.user.updateProfile({
                 displayName : name,
                 photoURL : profilePic
             })
-        })
         .then(()=>{
-            dispatch(login({
-                email : userAuth.user.email,
-                uid : userAuth.user.uid,
-                displayName : name,
-                photoUrl : profilePic
-            }))
+        dispatch(login({
+            email : userAuth.user.email,
+            uid : userAuth.user.uid,
+            displayName : name,
+            photoUrl : profilePic
+        }))
         })
         .catch((err)=> alert(err.message))
-        
+       })  
         //firebase function that creates the email and password on backend
         //after userAuth is created by firebase with email and password , we can update the profile and add name and profile pic
         //displayName , photoURL are firebase specific keys , so should not be changed
         //if all of it goes well, we call the dispatch function which fires the login action function and takes an object as payload.
 
     }
-    const loginToApp =(e)=> {
-        e.preventDefault()
-        console.log(name , email);
-        
-    }
+    
     return (
         <div className = "login">
             <img 
