@@ -14,11 +14,14 @@ import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
 import {db} from "./firebase"
 import firebase from "firebase"
 import Post from "./Post"
+import { useSelector } from 'react-redux';
+import { selectUser } from './features/userSlice';
+import FlipMove from 'react-flip-move';
 
 const Feed = () => {
-
     const [input, setInput] = useState("")
     const [posts, setPosts] = useState([])
+    const user = useSelector(selectUser)
 
     useEffect(() => { 
         // onSnapShot gives a realtime snapshot of "posts" from our database
@@ -38,13 +41,15 @@ const Feed = () => {
         // sending data to the firestore
         //add a collection names posts to db
         db.collection("posts").add({
-            name : "Uttam Marandi",
-            description: "this is a test",
+            name : user.displayName,
+            description: user.email,
             message : input,
-            photoUrl : "",
+            photoUrl : user.photoUrl|| "",
             timestamp : firebase.firestore.FieldValue.serverTimestamp()
             // gets the timestamp of the server, so that it does not effect the time based on timezones
         })
+
+        setInput("")
     }
 
 
@@ -70,6 +75,7 @@ const Feed = () => {
             {/* Posts */}
             {/* Here posts is same as the one we received from db */}
 
+            <FlipMove>
             {posts.map(({id, data : {name , description , message , photoUrl} })=>{
                 return ( <Post
                 key = {id}
@@ -81,6 +87,7 @@ const Feed = () => {
             }
                 // Bug fix : earlier I was using curly braces but not using return statement. If using curly barces for arrow function body than you have to explicitly mention the return
             )}
+            </FlipMove>
            
         </div>
         

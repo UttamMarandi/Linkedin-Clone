@@ -2,8 +2,13 @@ import { Avatar } from '@material-ui/core'
 import React from 'react'
 import "./Sidebar.css"
 import Frame from "./Images/Frame.png"
+import { useSelector } from 'react-redux'
+import { selectUser } from './features/userSlice'
 
 const Sidebar = () => {
+
+    //useSlector will give us user object which holds the current state values
+    const user = useSelector(selectUser)
 
     // Imp
     const recenItem =(topic)=> {
@@ -20,9 +25,10 @@ const Sidebar = () => {
         <div className="sidebar">
             <div className="sidebar__top">
                 <img src={Frame} alt="" />
-                <Avatar className = "sidebar__avatar"/>
-                <h2>Uttam Marandi</h2>
-                <h4>uttammarandi007@gmail.com</h4>
+                <Avatar className ="sidebar__avatar" src ="user.phptoUrl">{user.displayName[0]}
+                </Avatar>
+                <h2>{user.displayName}</h2>
+                <h4>{user.email}</h4>
             </div>
             <div className="sidebar__stats">
                 <div className="sidebar__stat">
