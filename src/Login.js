@@ -23,21 +23,21 @@ const Login = () => {
         if(!name) {
             return alert ("Please enter full name")
         }
+
         auth.createUserWithEmailAndPassword(email,password)
        .then((userAuth) => {
            userAuth.user.updateProfile({
                 displayName : name,
                 photoURL : profilePic
             })
-        .then(()=>{
-        dispatch(login({
+        .then(()=>{dispatch(login({
             email : userAuth.user.email,
             uid : userAuth.user.uid,
             displayName : name,
             photoUrl : profilePic
         }))
         })
-        .catch((err)=> alert(err.message))
+        .catch((err)=> alert(err))
        })  
         //firebase function that creates the email and password on backend
         //after userAuth is created by firebase with email and password , we can update the profile and add name and profile pic
